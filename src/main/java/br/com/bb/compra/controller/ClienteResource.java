@@ -41,7 +41,7 @@ public class ClienteResource {
                 .build();
     }
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     public Response removerCliente(@PathParam("id") Long id) {
         try {
             clienteService.removerCliente(id);
