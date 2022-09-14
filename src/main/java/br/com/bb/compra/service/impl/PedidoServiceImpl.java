@@ -10,11 +10,13 @@ import br.com.bb.compra.model.entity.ProdutoEntity;
 import br.com.bb.compra.repository.ClienteRepository;
 import br.com.bb.compra.repository.ProdutoRepository;
 import br.com.bb.compra.service.PedidoService;
+import br.com.bb.compra.service.impl.pedido.ProcessamentoPedido;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +30,7 @@ public class PedidoServiceImpl implements PedidoService {
     private final JsonWebToken accessToken;
     private final ClienteRepository clienteRepository;
 
+    private final Instance<ProcessamentoPedido> processamentoPedidos;
     @Override
     @Transactional
     public PedidoResponseDto realizarPedido(PedidoRequestDto pedidoDto) {
@@ -41,7 +44,7 @@ public class PedidoServiceImpl implements PedidoService {
 
         // Processar pedido
         //Continuar Passo 5:
-
+        processamentoPedidos.forEach(p -> p.processar(pedidoEntity));
         // validarEstoque
         // Baixa no estoque
 
