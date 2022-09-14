@@ -16,11 +16,6 @@ import java.util.List;
 
 import static br.com.bb.compra.converter.ProdutoConverter.convertEntityTo;
 
-//@RequestScoped para cada request
-//@SessionScoped para cada sessao => cookie JSESSIONID
-//@Singleton instancia classe no startup
-//@ApplicationScoped instancia quando voce usa pela primeira vez => cria uma classe proxy
-
 @ApplicationScoped
 @RequiredArgsConstructor
 public class ProdutoServiceImpl implements ProdutoService {
@@ -45,7 +40,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public Produto buscaPorId(Long id) {
-        final ProdutoEntity produtoSalvo = repository.findById(id);
+        final ProdutoEntity produtoSalvo = ProdutoEntity.findById(id);
         if (produtoSalvo.getId() == null) {
             throw new RuntimeException();
         }
@@ -55,8 +50,6 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public boolean isEmpty() {
         return repository.count() == 0;
-
-        
     }
 
     @Override
@@ -69,13 +62,6 @@ public class ProdutoServiceImpl implements ProdutoService {
                 .page(page)
                 .total(produtoPanacheQuery.pageCount())
                 .build();
-    }
-
-    @Override
-    @Transactional
-    public void removerProduto(Long id) {
-        repository.deleteById(id);
-        
     }
 
 

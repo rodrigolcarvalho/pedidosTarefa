@@ -13,4 +13,5 @@ public class ProdutoRepository implements PanacheRepositoryBase<ProdutoEntity, L
     public PanacheQuery<ProdutoEntity> findByNomeOrDescricao(String filtro, Page page) {
         return find("nome like ?1 OR descricao like ?2 ", "%" + filtro + "%", "%" + filtro + "%").page(page);
     }
+
 }

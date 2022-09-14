@@ -8,5 +8,7 @@ import java.util.List;
 public interface ClienteService {
     void salvarCliente(Cliente cliente);
     List<Cliente> getClientes();
-    void removerCliente(Long id) throws Exception;
+    Cliente findByEmail(String email);
+    List<String> cpfByEmail(String email);
+    List<Cliente> mapCliente(String nome);
 }

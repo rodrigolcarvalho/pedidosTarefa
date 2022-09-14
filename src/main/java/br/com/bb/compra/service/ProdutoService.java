@@ -15,6 +15,4 @@ public interface ProdutoService {
     boolean isEmpty();
 
     ProdutoListDto listar(String filtro, Integer page, Integer size);
-
-    void removerProduto(Long id);
 }
